@@ -17,7 +17,7 @@ class QuizApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        QuizView.routeName: (context) => const QuizView(),
+        QuizView.routeName: (context) => QuizView(),
         HomeView.routeName: (context) => const HomeView(),
         MarksView.routeName: (context) => MarksView(),
         SignInView.routeName: (context) => const SignInView(),

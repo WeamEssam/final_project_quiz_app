@@ -1,70 +1,63 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:quiz_app/views/home_view.dart';
 import 'package:quiz_app/views/marks_view.dart';
+import 'package:quiz_app/views/quiz_view.dart';
 import 'package:quiz_app/widgets/back_button.dart';
 import 'package:quiz_app/widgets/custome_next_button.dart';
 import 'package:quiz_app/widgets/list_item_widget.dart';
 
-class ButtonsSection extends StatefulWidget {
-  const ButtonsSection({
+class ButtonSection extends StatefulWidget {
+  ButtonSection({
     super.key,
-    required this.pageController,
     required this.pageIndex,
+    required this.quizViewWidget,
   });
-
-  final PageController pageController;
-  final int pageIndex;
-
+  int pageIndex;
+  final QuizView quizViewWidget;
   @override
-  State<ButtonsSection> createState() => _ButtonsSectionState();
+  State<ButtonSection> createState() => _ButtonSectionState();
 }
 
-class _ButtonsSectionState extends State<ButtonsSection> {
-  late int currentPage;
-  @override
-  void initState() {
-    super.initState();
-    currentPage = widget.pageIndex;
-  }
-
+class _ButtonSectionState extends State<ButtonSection> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 55),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            GestureDetector(
-              onTap: () {
-                if (currentPage == 0) {
-                  Navigator.pushNamed(context, HomeView.routeName);
-                } else {
-                  currentPage--;
-                  widget.pageController.animateToPage(currentPage,
-                      duration: const Duration(milliseconds: 600),
-                      curve: Curves.easeIn);
-                }
-              },
-              child: const CustomeBackButton(),
-            ),
-            GestureDetector(
-              onTap: () {
-                if (currentPage == quizList.length - 1) {
-                  Navigator.pushNamed(context, MarksView.routeName);
-                } else {
-                  currentPage++;
-                  widget.pageController.animateToPage(currentPage,
-                      duration: const Duration(milliseconds: 600),
-                      curve: Curves.easeIn);
-                }
-              },
-              child: const CustomeNextButton(),
-            ),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 30, right: 10, left: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          GestureDetector(
+            onTap: () {
+              if (widget.pageIndex == 0) {
+                Navigator.pushNamed(context, HomeView.routeName);
+              } else {
+                widget.pageIndex--;
+                widget.quizViewWidget.pageController.animateToPage(
+                    widget.pageIndex,
+                    duration: const Duration(milliseconds: 600),
+                    curve: Curves.easeIn);
+              }
+            },
+            child: const CustomeBackButton(),
+          ),
+          GestureDetector(
+            onTap: () {
+              if (widget.pageIndex == quizList.length - 1) {
+                Navigator.pushNamed(context, MarksView.routeName);
+              } else {
+                widget.pageIndex++;
+                widget.quizViewWidget.pageController.animateToPage(
+                    widget.pageIndex,
+                    duration: const Duration(milliseconds: 600),
+                    curve: Curves.easeIn);
+              }
+            },
+            child: const CustomeNextButton(),
+          ),
+        ],
       ),
     );
   }

@@ -9,14 +9,13 @@ class SignInView extends StatefulWidget {
   const SignInView({super.key});
 
   static const String routeName = '/sign_in';
-  final int count = 0;
 
   @override
   State<SignInView> createState() => _SignInViewState();
 }
 
 class _SignInViewState extends State<SignInView> {
-  bool isChecked = false;
+  bool isCheckedBox = false;
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
 
@@ -143,12 +142,12 @@ class _SignInViewState extends State<SignInView> {
                             ),
                             const Spacer(),
                             Checkbox(
-                              value: isChecked,
+                              value: isCheckedBox,
                               activeColor: const Color(0xFF8E84FF),
                               checkColor: Colors.white,
                               onChanged: (bool? value) {
                                 setState(() {
-                                  isChecked = value!;
+                                  isCheckedBox = value!;
                                 });
                               },
                             ),

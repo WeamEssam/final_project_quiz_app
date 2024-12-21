@@ -17,7 +17,6 @@ class QuestionNumber extends StatelessWidget {
         color: Colors.white,
         fontSize: 12,
         fontWeight: FontWeight.w400,
-        //   height: 0,
       ),
     );
   }

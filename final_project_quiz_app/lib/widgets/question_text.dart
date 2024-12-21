@@ -16,7 +16,6 @@ class QuestionText extends StatelessWidget {
       style: const TextStyle(
         color: Colors.white,
         fontSize: 24,
-        fontFamily: 'Gilroy',
         fontWeight: FontWeight.w500,
       ),
     );

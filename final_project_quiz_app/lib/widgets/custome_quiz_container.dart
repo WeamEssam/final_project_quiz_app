@@ -1,8 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:quiz_app/models/quiz_model.dart';
-import 'package:quiz_app/widgets/button_section.dart';
-import 'package:quiz_app/widgets/custom_answer_box.dart';
+import 'package:quiz_app/widgets/custom_choice_box.dart';
 import 'package:quiz_app/widgets/header_section.dart';
 import 'package:quiz_app/widgets/question_text.dart';
 
@@ -11,13 +10,11 @@ class CustomeQuizContainer extends StatefulWidget {
     super.key,
     required this.quizModel,
     required this.pageIndex,
-    required this.pageController,
     required this.onScoreUpdated,
   });
   final QuizModel quizModel;
-  final PageController pageController;
-  final int pageIndex;
   final Function(int) onScoreUpdated;
+  final int pageIndex;
 
   @override
   State<CustomeQuizContainer> createState() => _CustomeQuizContainerState();
@@ -70,25 +67,24 @@ class _CustomeQuizContainerState extends State<CustomeQuizContainer>
           Expanded(
             flex: 2,
             child: ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: widget.quizModel.choices.length,
-                itemBuilder: (context, index) {
-                  return ChoiceBox(
-                    textAnswer: widget.quizModel.choices[index],
-                    onSelected: (String? newvalue) {
-                      setState(() {
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: widget.quizModel.choices.length,
+              itemBuilder: (context, index) {
+                return ChoiceBox(
+                  textAnswer: widget.quizModel.choices[index],
+                  onSelected: (String? newvalue) {
+                    setState(
+                      () {
                         selectedAnswer = newvalue!;
                         checkAnswer();
                         log(score.toString());
-                      });
-                    },
-                    selectedAnswer: selectedAnswer,
-                  );
-                }),
-          ),
-          ButtonsSection(
-            pageController: widget.pageController,
-            pageIndex: widget.pageIndex,
+                      },
+                    );
+                  },
+                  selectedAnswer: selectedAnswer,
+                );
+              },
+            ),
           ),
         ],
       ),
